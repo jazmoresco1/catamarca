@@ -73,13 +73,14 @@
         
         /* Hero Section */
         .hero {
-            height: 80vh;
+            min-height: 80vh;
             background-image: url('/api/placeholder/1200/800');
             background-size: cover;
             background-position: center;
             display: flex;
             align-items: center;
             position: relative;
+            padding: 60px 0;
         }
         
         .hero::before {
@@ -96,8 +97,18 @@
             position: relative;
             z-index: 10;
             color: #fff;
-            max-width: 600px;
+            max-width: 1000px;
             padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .hero-content > h1, 
+        .hero-content > p {
+            width: 100%;
+            max-width: 600px;
         }
         
         .hero h1 {
@@ -108,6 +119,50 @@
         .hero p {
             font-size: 18px;
             margin-bottom: 30px;
+        }
+        
+        .hero-booking-form {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 25px;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-booking-form form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .hero-booking-form .form-group {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .hero-booking-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .hero-booking-form input,
+        .hero-booking-form select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .hero-booking-form .btn {
+            flex: 1;
+            min-width: 150px;
+            margin-top: 22px;
+            padding: 14px;
         }
         
         .btn {
@@ -165,6 +220,22 @@
         
         .feature-content h3 {
             margin-bottom: 10px;
+        }
+        
+        .btn-small {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-top: 15px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-small:hover {
+            background-color: #0056b3;
         }
         
         /* Habitaciones */
@@ -241,6 +312,77 @@
             border-radius: 8px;
             overflow: hidden;
             margin-top: 30px;
+        }
+        
+        /* Sistema de Reservas */
+        .booking-system {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .booking-iframe-container {
+            position: relative;
+            height: 600px;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            background-color: #fff;
+        }
+        
+        #booking-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .booking-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .booking-policies, .booking-help {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .booking-policies h3, .booking-help h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .booking-policies ul {
+            list-style: none;
+        }
+        
+        .booking-policies ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .booking-policies ul li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #007bff;
+        }
+        
+        .booking-policies ul li:last-child {
+            border-bottom: none;
+        }
+        
+        .booking-help p {
+            margin-bottom: 10px;
         }
         
         /* Contacto */
@@ -340,6 +482,7 @@
                     <li><a href="#habitaciones">Habitaciones</a></li>
                     <li><a href="#servicios">Servicios</a></li>
                     <li><a href="#ubicacion">Ubicación</a></li>
+                    <li><a href="#reservas">Reservas</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </nav>
@@ -351,7 +494,36 @@
         <div class="container hero-content">
             <h1>Bienvenidos a Catamarca Suites Land</h1>
             <p>Descubra una experiencia única de alojamiento en el corazón de Rosario. Confort, elegancia y servicio personalizado para hacer de su estadía un momento inolvidable.</p>
-            <a href="#habitaciones" class="btn">Ver Habitaciones</a>
+            <div class="hero-booking-form">
+                <form id="hero-search-form">
+                    <div class="form-group">
+                        <label for="hero-check-in">Llegada</label>
+                        <input type="date" id="hero-check-in" name="check-in" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hero-check-out">Salida</label>
+                        <input type="date" id="hero-check-out" name="check-out" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hero-adults">Adultos</label>
+                        <select id="hero-adults" name="adults">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="hero-children">Niños</label>
+                        <select id="hero-children" name="children">
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn" id="hero-search-btn">Reservar Ahora</button>
+                </form>
+            </div>
         </div>
     </section>
 
@@ -367,6 +539,7 @@
                     <div class="feature-content">
                         <h3>Ubicación estratégica</h3>
                         <p>Situado en una zona privilegiada de Rosario, con fácil acceso a las principales atracciones turísticas y zonas comerciales.</p>
+                        <a href="#reservas" class="btn-small">Reservar ahora</a>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -376,6 +549,7 @@
                     <div class="feature-content">
                         <h3>Confort superior</h3>
                         <p>Habitaciones diseñadas pensando en su comodidad, con mobiliario moderno y todas las facilidades para una estancia perfecta.</p>
+                        <a href="#reservas" class="btn-small">Reservar ahora</a>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -385,6 +559,7 @@
                     <div class="feature-content">
                         <h3>Atención personalizada</h3>
                         <p>Nuestro equipo está a su disposición para garantizar que su estadía sea perfecta, atendiendo a todos sus requerimientos.</p>
+                        <a href="#reservas" class="btn-small">Reservar ahora</a>
                     </div>
                 </div>
             </div>
@@ -410,7 +585,7 @@
                             <li>Baño privado</li>
                         </ul>
                         <div class="price">Desde $15.000 / noche</div>
-                        <a href="#contacto" class="btn">Reservar</a>
+                        <a href="#reservas" class="btn">Reservar</a>
                     </div>
                 </div>
                 <div class="room-card">
@@ -428,7 +603,7 @@
                             <li>Baño con jacuzzi</li>
                         </ul>
                         <div class="price">Desde $20.000 / noche</div>
-                        <a href="#contacto" class="btn">Reservar</a>
+                        <a href="#reservas" class="btn">Reservar</a>
                     </div>
                 </div>
                 <div class="room-card">
@@ -447,7 +622,7 @@
                             <li>Vista panorámica</li>
                         </ul>
                         <div class="price">Desde $25.000 / noche</div>
-                        <a href="#contacto" class="btn">Reservar</a>
+                        <a href="#reservas" class="btn">Reservar</a>
                     </div>
                 </div>
             </div>
@@ -509,6 +684,34 @@
         </div>
     </section>
 
+    <!-- Sistema de Reservas -->
+    <section class="booking-system" id="reservas">
+        <div class="container">
+            <h2 class="section-title">Reserve su Estadía</h2>
+            <div class="booking-iframe-container">
+                <iframe id="booking-frame" src="https://www.catamarcasuitesland.com.ar/lp.html?search=OK&pos=CatamarcaSuitesLand&SearchID=42463803&cur=ARS&lng=es&Pid=22124" allowfullscreen></iframe>
+            </div>
+            
+            <div class="booking-info">
+                <div class="booking-policies">
+                    <h3>Políticas de Reserva</h3>
+                    <ul>
+                        <li>Check-in: 14:00 hrs</li>
+                        <li>Check-out: 12:00 hrs</li>
+                        <li>Se requiere tarjeta de crédito para garantizar la reserva</li>
+                        <li>Cancelación gratuita hasta 48 horas antes de la llegada</li>
+                    </ul>
+                </div>
+                <div class="booking-help">
+                    <h3>¿Necesita Ayuda?</h3>
+                    <p>Si tiene problemas con su reserva o necesita asistencia personal, contáctenos:</p>
+                    <p><strong>Teléfono:</strong> +54 341 123 4567</p>
+                    <p><strong>Email:</strong> reservas@catamarcasuitesland.com.ar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Contacto -->
     <section class="contact" id="contacto">
         <div class="container">
@@ -564,6 +767,7 @@
                         <li><a href="#habitaciones">Habitaciones</a></li>
                         <li><a href="#servicios">Servicios</a></li>
                         <li><a href="#ubicacion">Ubicación</a></li>
+                        <li><a href="#reservas">Reservas</a></li>
                         <li><a href="#contacto">Contacto</a></li>
                     </ul>
                 </div>
@@ -590,5 +794,21 @@
             </div>
         </div>
     </footer>
-</body>
-</html>
+    <script>
+        // Script para establecer fechas predeterminadas y manejar el botón de reserva en hero
+        document.addEventListener('DOMContentLoaded', function() {
+            // Establecer fechas actuales para los selectores de fecha
+            const today = new Date();
+            const tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            
+            // Formatear fechas para input date (YYYY-MM-DD)
+            const formatDate = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            };
+            
+            // Establecer fechas en el formulario hero
+            if (document.getElementById('hero-check-in')) {
