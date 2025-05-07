@@ -978,12 +978,395 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </section>
 
+   <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Reservas - Catamarca Suites Land</title>
+    <style>
+        /* Estilos generales */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Encabezado de la página */
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            color: #333;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        
+        /* Estilos específicos para el módulo de reservas */
+        .booking-system {
+            padding: 60px 0;
+        }
+        
+        .booking-container {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .booking-tabs {
+            display: flex;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .booking-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .booking-tab.active {
+            background-color: #fff;
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+        }
+        
+        .booking-content {
+            padding: 30px;
+        }
+        
+        .booking-form .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px 20px;
+        }
+        
+        .booking-form .form-group {
+            flex: 1;
+            min-width: 200px;
+            padding: 0 10px;
+        }
+        
+        .booking-form .form-group.full-width {
+            flex: 100%;
+        }
+        
+        .booking-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .booking-form input,
+        .booking-form select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        
+        .results-title {
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* Estilos para las habitaciones en resultados */
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .room-card-result {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .room-card-result:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .room-image-result {
+            height: 180px;
+            background-color: #f0f0f0;
+        }
+        
+        .room-content-result {
+            padding: 15px;
+        }
+        
+        .room-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .room-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .room-features-list {
+            list-style: none;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .room-features-list li {
+            padding: 3px 0;
+        }
+        
+        .room-features-list li:before {
+            content: "✓";
+            color: #007bff;
+            margin-right: 5px;
+        }
+        
+        .room-price-result {
+            font-size: 22px;
+            font-weight: bold;
+            color: #007bff;
+            margin: 15px 0;
+        }
+        
+        .booking-actions {
+            margin-top: 15px;
+        }
+        
+        .booking-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .booking-policies, .booking-help {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .booking-policies h3, .booking-help h3 {
+            margin-bottom: 15px;
+            color: #333;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .booking-policies ul {
+            list-style-type: none;
+        }
+        
+        .booking-policies ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .booking-policies ul li:before {
+            content: "•";
+            color: #007bff;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+        }
+        
+        .booking-help p {
+            margin-bottom: 15px;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .booking-form .form-group {
+                flex: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .booking-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Catamarca Suites Land</h1>
+            <p>Su hogar lejos de casa</p>
+        </div>
+    </header>
+
     <!-- Sistema de Reservas -->
     <section class="booking-system" id="reservas">
         <div class="container">
             <h2 class="section-title">Reserve su Estadía</h2>
-            <div class="booking-iframe-container">
-                <iframe id="booking-frame" src="https://www.catamarcasuitesland.com.ar/lp.html?search=OK&pos=CatamarcaSuitesLand&SearchID=42463803&cur=ARS&lng=es&Pid=22124" allowfullscreen></iframe>
+            
+            <!-- Bloque de reservas personalizado -->
+            <div class="booking-container">
+                <!-- Pestañas de navegación -->
+                <div class="booking-tabs">
+                    <button class="booking-tab active" data-tab="new-booking">Nueva Reserva</button>
+                    <button class="booking-tab" data-tab="modify-booking">Modificar Reserva</button>
+                    <button class="booking-tab" data-tab="cancel-booking">Cancelar Reserva</button>
+                </div>
+                
+                <!-- Contenido de las pestañas -->
+                <div class="booking-content">
+                    <!-- Nueva Reserva -->
+                    <div class="tab-content active" id="new-booking">
+                        <form id="booking-form" class="booking-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="check-in-date">Fecha de llegada</label>
+                                    <input type="date" id="check-in-date" name="check-in" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="check-out-date">Fecha de salida</label>
+                                    <input type="date" id="check-out-date" name="check-out" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="adults">Adultos</label>
+                                    <select id="adults" name="adults">
+                                        <option value="1">1</option>
+                                        <option value="2" selected>2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="children">Niños</label>
+                                    <select id="children" name="children">
+                                        <option value="0" selected>0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <button type="button" id="search-rooms-btn" class="btn">Buscar Disponibilidad</button>
+                            </div>
+                        </form>
+                        
+                        <!-- Resultados de búsqueda (ocultos inicialmente) -->
+                        <div id="search-results" style="display: none;">
+                            <h3 class="results-title">Habitaciones Disponibles</h3>
+                            <div class="rooms-grid">
+                                <!-- Las habitaciones disponibles se cargarán dinámicamente aquí -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Modificar Reserva -->
+                    <div class="tab-content" id="modify-booking" style="display: none;">
+                        <form id="modify-form" class="booking-form">
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="booking-code">Código de Reserva</label>
+                                    <input type="text" id="booking-code" name="booking-code" required placeholder="Ingrese su código de reserva">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="booking-email">Email de Contacto</label>
+                                    <input type="email" id="booking-email" name="booking-email" required placeholder="Email utilizado en la reserva">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <button type="button" id="search-booking-btn" class="btn">Buscar mi Reserva</button>
+                            </div>
+                        </form>
+                        
+                        <!-- Resultados de búsqueda de reserva (ocultos inicialmente) -->
+                        <div id="booking-details" style="display: none;">
+                            <h3 class="results-title">Detalles de su Reserva</h3>
+                            <div class="booking-details-content">
+                                <!-- Los detalles de la reserva se cargarán dinámicamente aquí -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cancelar Reserva -->
+                    <div class="tab-content" id="cancel-booking" style="display: none;">
+                        <form id="cancel-form" class="booking-form">
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="cancel-code">Código de Reserva</label>
+                                    <input type="text" id="cancel-code" name="cancel-code" required placeholder="Ingrese su código de reserva">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="cancel-email">Email de Contacto</label>
+                                    <input type="email" id="cancel-email" name="cancel-email" required placeholder="Email utilizado en la reserva">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <button type="button" id="verify-cancel-btn" class="btn">Verificar Reserva para Cancelación</button>
+                            </div>
+                        </form>
+                        
+                        <!-- Confirmación de cancelación (oculta inicialmente) -->
+                        <div id="cancel-confirmation" style="display: none;">
+                            <h3 class="results-title">Confirmar Cancelación</h3>
+                            <div class="cancel-details">
+                                <!-- Los detalles de la cancelación se cargarán dinámicamente aquí -->
+                            </div>
+                            <div class="form-row" style="margin-top: 20px;">
+                                <button type="button" id="confirm-cancel-btn" class="btn" style="background-color: #dc3545;">Confirmar Cancelación</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <div class="booking-info">
@@ -994,6 +1377,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li>Check-out: 12:00 hrs</li>
                         <li>Se requiere tarjeta de crédito para garantizar la reserva</li>
                         <li>Cancelación gratuita hasta 48 horas antes de la llegada</li>
+                        <li>Niños menores de 5 años se hospedan gratis</li>
+                        <li>Se permiten mascotas con cargo adicional (consultar disponibilidad)</li>
                     </ul>
                 </div>
                 <div class="booking-help">
@@ -1001,97 +1386,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p>Si tiene problemas con su reserva o necesita asistencia personal, contáctenos:</p>
                     <p><strong>Teléfono:</strong> +54 341 123 4567</p>
                     <p><strong>Email:</strong> reservas@catamarcasuitesland.com.ar</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Contacto -->
-    <section class="contact" id="contacto">
-        <div class="container">
-            <h2 class="section-title">Contáctenos</h2>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Información de contacto</h3>
-                    <p><strong>Teléfono:</strong> +54 341 123 4567</p>
-                    <p><strong>Email:</strong> info@catamarcasuitesland.com.ar</p>
-                    <p><strong>Dirección:</strong> Calle Principal 123, Rosario, Santa Fe, Argentina</p>
-                    <p><strong>Horario de recepción:</strong> 24/7</p>
-                    
-                    <h3 style="margin-top: 30px;">Redes sociales</h3>
-                    <div style="margin-top: 15px;">
-                        <a href="#" style="margin-right: 15px;">Facebook</a>
-                        <a href="#" style="margin-right: 15px;">Instagram</a>
-                        <a href="#">TripAdvisor</a>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <h3>Envíenos un mensaje</h3>
-                    <form>
-                        <input type="text" placeholder="Nombre completo" required>
-                        <input type="email" placeholder="Correo electrónico" required>
-                        <input type="tel" placeholder="Teléfono">
-                        <select style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px;">
-                            <option value="">Seleccione un asunto</option>
-                            <option value="reserva">Consulta sobre reserva</option>
-                            <option value="info">Información general</option>
-                            <option value="sugerencia">Sugerencia</option>
-                            <option value="otro">Otro</option>
-                        </select>
-                        <textarea placeholder="Mensaje" required></textarea>
-                        <button type="submit" class="btn">Enviar mensaje</button>
-                    </form>
+                    <p>Nuestro equipo de atención al cliente está disponible de lunes a domingo de 8:00 a 22:00 hrs.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <h3>Catamarca Suites Land</h3>
-                    <p>Su hogar lejos de casa en el corazón de Rosario. Ofrecemos una experiencia de alojamiento única con servicios de primer nivel.</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Enlaces rápidos</h3>
-                    <ul>
-                        <li><a href="#inicio">Inicio</a></li>
-                        <li><a href="#habitaciones">Habitaciones</a></li>
-                        <li><a href="#servicios">Servicios</a></li>
-                        <li><a href="#ubicacion">Ubicación</a></li>
-                        <li><a href="#reservas">Reservas</a></li>
-                        <li><a href="#contacto">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Políticas</h3>
-                    <ul>
-                        <li><a href="#">Términos y condiciones</a></li>
-                        <li><a href="#">Política de privacidad</a></li>
-                        <li><a href="#">Política de cancelación</a></li>
-                        <li><a href="#">Preguntas frecuentes</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Boletín informativo</h3>
-                    <p>Suscríbase para recibir nuestras últimas ofertas y novedades.</p>
-                    <form style="margin-top: 15px;">
-                        <input type="email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 10px; border: none; border-radius: 4px;">
-                        <button type="submit" class="btn" style="width: 100%;">Suscribirse</button>
-                    </form>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Catamarca Suites Land. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
     <script>
-        // Script para establecer fechas predeterminadas y manejar el botón de reserva en hero
         document.addEventListener('DOMContentLoaded', function() {
-            // Establecer fechas actuales para los selectores de fecha
+            // Establecer fechas predeterminadas
             const today = new Date();
             const tomorrow = new Date();
             tomorrow.setDate(today.getDate() + 1);
@@ -1104,5 +1407,227 @@ document.addEventListener('DOMContentLoaded', function() {
                 return `${year}-${month}-${day}`;
             };
             
-            // Establecer fechas en el formulario hero
-            if (document.getElementById('hero-check-in')) {
+            // Establecer fechas en el formulario de reserva
+            document.getElementById('check-in-date').value = formatDate(today);
+            document.getElementById('check-out-date').value = formatDate(tomorrow);
+            
+            // Manejar pestañas de navegación
+            const bookingTabs = document.querySelectorAll('.booking-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            bookingTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Quitar clase activa de todas las pestañas
+                    bookingTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Ocultar todos los contenidos y mostrar el seleccionado
+                    const tabId = this.getAttribute('data-tab');
+                    tabContents.forEach(content => {
+                        content.style.display = 'none';
+                    });
+                    document.getElementById(tabId).style.display = 'block';
+                });
+            });
+            
+            // Manejar búsqueda de disponibilidad
+            const searchButton = document.getElementById('search-rooms-btn');
+            if (searchButton) {
+                searchButton.addEventListener('click', function() {
+                    // En un sistema real, aquí harías una llamada a la API del motor de reservas
+                    // Por ahora, simplemente mostramos resultados ficticios con un pequeño retraso
+                    // para simular una petición a la API
+                    
+                    searchButton.textContent = 'Buscando...';
+                    searchButton.disabled = true;
+                    
+                    setTimeout(function() {
+                        // Mostrar resultados
+                        document.getElementById('search-results').style.display = 'block';
+                        
+                        // Generar habitaciones disponibles dinámicamente
+                        const roomsGrid = document.querySelector('.rooms-grid');
+                        roomsGrid.innerHTML = ''; // Limpiar resultados previos
+                        
+                        // Datos de muestra
+                        const availableRooms = [
+                            {
+                                title: 'Habitación Estándar',
+                                description: 'Habitación cómoda y funcional con todas las comodidades necesarias.',
+                                image: '/api/placeholder/300/180',
+                                features: ['Cama King Size', 'TV LED 42"', 'WiFi gratuito', 'Baño privado'],
+                                price: 15000
+                            },
+                            {
+                                title: 'Suite Junior',
+                                description: 'Espacio adicional y comodidades premium para una experiencia superior.',
+                                image: '/api/placeholder/300/180',
+                                features: ['Cama King Size', 'Sala de estar', 'TV LED 50"', 'Minibar', 'Baño con jacuzzi'],
+                                price: 20000
+                            },
+                            {
+                                title: 'Suite Ejecutiva',
+                                description: 'Nuestra opción más lujosa, con amplios espacios y todas las comodidades.',
+                                image: '/api/placeholder/300/180',
+                                features: ['Cama Super King', 'Sala de estar separada', 'TV LED 65"', 'Cocina equipada', 'Baño con hidromasaje'],
+                                price: 25000
+                            }
+                        ];
+                        
+                        // Crear tarjetas para cada habitación
+                        availableRooms.forEach(room => {
+                            const roomCard = document.createElement('div');
+                            roomCard.className = 'room-card-result';
+                            
+                            // Lista de características
+                            let featuresHTML = '';
+                            room.features.forEach(feature => {
+                                featuresHTML += `<li>${feature}</li>`;
+                            });
+                            
+                            roomCard.innerHTML = `
+                                <div class="room-image-result">
+                                    <img src="${room.image}" alt="${room.title}" width="100%" height="100%">
+                                </div>
+                                <div class="room-content-result">
+                                    <h4 class="room-title">${room.title}</h4>
+                                    <p class="room-description">${room.description}</p>
+                                    <ul class="room-features-list">
+                                        ${featuresHTML}
+                                    </ul>
+                                    <div class="room-price-result">$${room.price} / noche</div>
+                                    <div class="booking-actions">
+                                        <button class="btn">Reservar Ahora</button>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            roomsGrid.appendChild(roomCard);
+                        });
+                        
+                        // Restaurar botón
+                        searchButton.textContent = 'Buscar Disponibilidad';
+                        searchButton.disabled = false;
+                        
+                        // Scroll a los resultados
+                        document.getElementById('search-results').scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }, 1500);
+                });
+            }
+            
+            // Manejar búsqueda de reserva existente
+            const searchBookingBtn = document.getElementById('search-booking-btn');
+            if (searchBookingBtn) {
+                searchBookingBtn.addEventListener('click', function() {
+                    // Simulación de búsqueda
+                    searchBookingBtn.textContent = 'Buscando...';
+                    searchBookingBtn.disabled = true;
+                    
+                    setTimeout(function() {
+                        // Mostrar detalles ficticios de la reserva
+                        const bookingDetails = document.getElementById('booking-details');
+                        bookingDetails.style.display = 'block';
+                        
+                        const bookingDetailsContent = document.querySelector('.booking-details-content');
+                        bookingDetailsContent.innerHTML = `
+                            <div class="booking-summary">
+                                <h4>Reserva #CSL-12345</h4>
+                                <p><strong>Huésped:</strong> Juan Pérez</p>
+                                <p><strong>Check-in:</strong> 15/05/2025</p>
+                                <p><strong>Check-out:</strong> 18/05/2025</p>
+                                <p><strong>Habitación:</strong> Suite Junior</p>
+                                <p><strong>Huéspedes:</strong> 2 adultos, 0 niños</p>
+                                <p><strong>Estado:</strong> <span style="color: green; font-weight: bold;">Confirmada</span></p>
+                                <p><strong>Total pagado:</strong> $60,000</p>
+                                
+                                <div style="margin-top: 20px;">
+                                    <button class="btn">Modificar Fechas</button>
+                                    <button class="btn" style="background-color: #dc3545; margin-left: 10px;">Cancelar Reserva</button>
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Restaurar botón
+                        searchBookingBtn.textContent = 'Buscar mi Reserva';
+                        searchBookingBtn.disabled = false;
+                        
+                        // Scroll a los resultados
+                        bookingDetails.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }, 1500);
+                });
+            }
+            
+            // Manejar verificación de cancelación
+            const verifyCancelBtn = document.getElementById('verify-cancel-btn');
+            if (verifyCancelBtn) {
+                verifyCancelBtn.addEventListener('click', function() {
+                    // Simulación de verificación
+                    verifyCancelBtn.textContent = 'Verificando...';
+                    verifyCancelBtn.disabled = true;
+                    
+                    setTimeout(function() {
+                        // Mostrar detalles ficticios de la reserva para cancelación
+                        const cancelConfirmation = document.getElementById('cancel-confirmation');
+                        cancelConfirmation.style.display = 'block';
+                        
+                        const cancelDetails = document.querySelector('.cancel-details');
+                        cancelDetails.innerHTML = `
+                            <div class="cancel-summary" style="background-color: #f8f9fa; padding: 20px; border-radius: 5px;">
+                                <h4>Reserva #CSL-12345</h4>
+                                <p><strong>Huésped:</strong> Juan Pérez</p>
+                                <p><strong>Check-in:</strong> 15/05/2025</p>
+                                <p><strong>Check-out:</strong> 18/05/2025</p>
+                                <p><strong>Habitación:</strong> Suite Junior</p>
+                                <p><strong>Total pagado:</strong> $60,000</p>
+                                <p><strong>Política de cancelación:</strong> Cancelación gratuita hasta 48 horas antes del check-in.</p>
+                                <p><strong>Reembolso:</strong> 100% del monto pagado</p>
+                                
+                                <div style="margin-top: 20px; padding: 15px; background-color: #fff3cd; border-radius: 5px;">
+                                    <p><strong>Importante:</strong> Al cancelar su reserva, esta acción no se puede deshacer. 
+                                    El reembolso se procesará en un plazo de 5 a 10 días hábiles según su método de pago.</p>
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Restaurar botón
+                        verifyCancelBtn.textContent = 'Verificar Reserva para Cancelación';
+                        verifyCancelBtn.disabled = false;
+                        
+                        // Configurar botón de confirmación de cancelación
+                        const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
+                        confirmCancelBtn.addEventListener('click', function() {
+                            confirmCancelBtn.textContent = 'Procesando...';
+                            confirmCancelBtn.disabled = true;
+                            
+                            setTimeout(function() {
+                                // Mostrar mensaje de éxito
+                                cancelDetails.innerHTML = `
+                                    <div style="text-align: center; padding: 30px;">
+                                        <div style="font-size: 60px; color: green; margin-bottom: 20px;">✓</div>
+                                        <h3>Reserva Cancelada con Éxito</h3>
+                                        <p>Hemos enviado un correo electrónico de confirmación a su dirección registrada.</p>
+                                        <p>El reembolso de $60,000 ha sido procesado y aparecerá en su cuenta en los próximos 5-10 días hábiles.</p>
+                                        <p>¡Gracias por elegir Catamarca Suites Land! Esperamos servirle en el futuro.</p>
+                                    </div>
+                                `;
+                                
+                                // Ocultar botón de confirmación
+                                document.getElementById('confirm-cancel-btn').style.display = 'none';
+                            }, 2000);
+                        });
+                        
+                        // Scroll a los resultados
+                        cancelConfirmation.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
