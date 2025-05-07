@@ -314,76 +314,370 @@
             margin-top: 30px;
         }
         
-        /* Sistema de Reservas */
-        .booking-system {
-            padding: 80px 0;
-            background-color: #f9f9f9;
-        }
+      <!-- Sistema de Reservas -->
+<section class="booking-system" id="reservas">
+    <div class="container">
+        <h2 class="section-title">Reserve su Estadía</h2>
         
-        .booking-iframe-container {
-            position: relative;
-            height: 600px;
-            width: 100%;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 40px;
-            background-color: #fff;
-        }
+        <!-- Bloque de reservas personalizado - reemplaza el iframe completo -->
+        <div class="booking-container">
+            <!-- Pestañas de navegación -->
+            <div class="booking-tabs">
+                <button class="booking-tab active" data-tab="new-booking">Nueva Reserva</button>
+                <button class="booking-tab" data-tab="modify-booking">Modificar Reserva</button>
+                <button class="booking-tab" data-tab="cancel-booking">Cancelar Reserva</button>
+            </div>
+            
+            <!-- Contenido de las pestañas -->
+            <div class="booking-content">
+                <!-- Nueva Reserva -->
+                <div class="tab-content active" id="new-booking">
+                    <form id="booking-form" class="booking-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="check-in-date">Fecha de llegada</label>
+                                <input type="date" id="check-in-date" name="check-in" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="check-out-date">Fecha de salida</label>
+                                <input type="date" id="check-out-date" name="check-out" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="adults">Adultos</label>
+                                <select id="adults" name="adults">
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="children">Niños</label>
+                                <select id="children" name="children">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <button type="button" id="search-rooms-btn" class="btn">Buscar Disponibilidad</button>
+                        </div>
+                    </form>
+                    
+                    <!-- Resultados de búsqueda (ocultos inicialmente) -->
+                    <div id="search-results" style="display: none;">
+                        <h3 class="results-title">Habitaciones Disponibles</h3>
+                        <div class="rooms-grid">
+                            <!-- Las habitaciones disponibles se cargarán dinámicamente aquí -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modificar Reserva -->
+                <div class="tab-content" id="modify-booking" style="display: none;">
+                    <form id="modify-form" class="booking-form">
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label for="booking-code">Código de Reserva</label>
+                                <input type="text" id="booking-code" name="booking-code" required placeholder="Ingrese su código de reserva">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label for="booking-email">Email de Contacto</label>
+                                <input type="email" id="booking-email" name="booking-email" required placeholder="Email utilizado en la reserva">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <button type="button" class="btn">Buscar mi Reserva</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Cancelar Reserva -->
+                <div class="tab-content" id="cancel-booking" style="display: none;">
+                    <form id="cancel-form" class="booking-form">
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label for="cancel-code">Código de Reserva</label>
+                                <input type="text" id="cancel-code" name="cancel-code" required placeholder="Ingrese su código de reserva">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label for="cancel-email">Email de Contacto</label>
+                                <input type="email" id="cancel-email" name="cancel-email" required placeholder="Email utilizado en la reserva">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <button type="button" class="btn">Verificar Reserva para Cancelación</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         
-        #booking-frame {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .booking-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .booking-policies, .booking-help {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .booking-policies h3, .booking-help h3 {
+        <div class="booking-info">
+            <div class="booking-policies">
+                <h3>Políticas de Reserva</h3>
+                <ul>
+                    <li>Check-in: 14:00 hrs</li>
+                    <li>Check-out: 12:00 hrs</li>
+                    <li>Se requiere tarjeta de crédito para garantizar la reserva</li>
+                    <li>Cancelación gratuita hasta 48 horas antes de la llegada</li>
+                </ul>
+            </div>
+            <div class="booking-help">
+                <h3>¿Necesita Ayuda?</h3>
+                <p>Si tiene problemas con su reserva o necesita asistencia personal, contáctenos:</p>
+                <p><strong>Teléfono:</strong> +54 341 123 4567</p>
+                <p><strong>Email:</strong> reservas@catamarcasuitesland.com.ar</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CSS adicional para el sistema de reservas -->
+<style>
+    /* Estilos específicos para el módulo de reservas */
+    .booking-container {
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+    }
+    
+    .booking-tabs {
+        display: flex;
+        background-color: #f0f0f0;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .booking-tab {
+        flex: 1;
+        padding: 15px;
+        text-align: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        color: #666;
+        transition: all 0.3s;
+    }
+    
+    .booking-tab.active {
+        background-color: #fff;
+        color: #007bff;
+        border-bottom: 3px solid #007bff;
+    }
+    
+    .booking-content {
+        padding: 30px;
+    }
+    
+    .booking-form .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -10px 20px;
+    }
+    
+    .booking-form .form-group {
+        flex: 1;
+        min-width: 200px;
+        padding: 0 10px;
+    }
+    
+    .booking-form .form-group.full-width {
+        flex: 100%;
+    }
+    
+    .booking-form label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    
+    .booking-form input,
+    .booking-form select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 15px;
+    }
+    
+    .results-title {
+        margin: 30px 0 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    /* Estilos para las habitaciones en resultados */
+    .rooms-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    
+    .room-card-result {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .room-card-result:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .room-image-result {
+        height: 180px;
+        background-color: #f0f0f0;
+    }
+    
+    .room-content-result {
+        padding: 15px;
+    }
+    
+    .room-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    
+    .room-features-list {
+        list-style: none;
+        margin: 10px 0;
+        font-size: 14px;
+    }
+    
+    .room-features-list li {
+        padding: 3px 0;
+    }
+    
+    .room-features-list li:before {
+        content: "✓";
+        color: #007bff;
+        margin-right: 5px;
+    }
+    
+    .room-price-result {
+        font-size: 22px;
+        font-weight: bold;
+        color: #007bff;
+        margin: 15px 0;
+    }
+    
+    @media (max-width: 768px) {
+        .booking-form .form-group {
+            flex: 100%;
             margin-bottom: 15px;
-            color: #333;
         }
-        
-        .booking-policies ul {
-            list-style: none;
-        }
-        
-        .booking-policies ul li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-            position: relative;
-            padding-left: 20px;
-        }
-        
-        .booking-policies ul li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #007bff;
-        }
-        
-        .booking-policies ul li:last-child {
-            border-bottom: none;
-        }
-        
-        .booking-help p {
-            margin-bottom: 10px;
-        }
+    }
+</style>
+
+<!-- JavaScript para el manejo del bloque de reservas -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Establecer fechas predeterminadas
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+    
+    // Formatear fechas para input date (YYYY-MM-DD)
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+    
+    // Establecer fechas en el formulario de reserva
+    document.getElementById('check-in-date').value = formatDate(today);
+    document.getElementById('check-out-date').value = formatDate(tomorrow);
+    
+    // Manejar pestañas de navegación
+    const bookingTabs = document.querySelectorAll('.booking-tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    bookingTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Quitar clase activa de todas las pestañas
+            bookingTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Ocultar todos los contenidos y mostrar el seleccionado
+            const tabId = this.getAttribute('data-tab');
+            tabContents.forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById(tabId).style.display = 'block';
+        });
+    });
+    
+    // Manejar búsqueda de disponibilidad
+    const searchButton = document.getElementById('search-rooms-btn');
+    if (searchButton) {
+        searchButton.addEventListener('click', function() {
+            // En un sistema real, aquí harías una llamada a la API del motor de reservas
+            // Por ahora, simplemente mostramos resultados ficticios con un pequeño retraso
+            // para simular una petición a la API
+            
+            searchButton.textContent = 'Buscando...';
+            searchButton.disabled = true;
+            
+            setTimeout(function() {
+                // Mostrar resultados
+                document.getElementById('search-results').style.display = 'block';
+                
+                // Generar habitaciones disponibles dinámicamente
+                const roomsGrid = document.querySelector('.rooms-grid');
+                roomsGrid.innerHTML = ''; // Limpiar resultados previos
+                
+                // Datos de muestra
+                const availableRooms = [
+                    {
+                        title: 'Habitación Estándar',
+                        description: 'Habitación cómoda y funcional con todas las comodidades necesarias.',
+                        image: '/api/placeholder/300/180',
+                        features: ['Cama King Size', 'TV LED 42"', 'WiFi gratuito', 'Baño privado'],
+                        price: 15000
+                    },
+                    {
+                        title: 'Suite Junior',
+                        description: 'Espacio adicional y comodidades premium para una experiencia superior.',
+                        image: '/api/placeholder/300/180',
+                        features: ['Cama King Size', 'Sala de estar', 'TV LED 50"', 'Minibar', 'Baño con jacuzzi'],
+                        price: 20000
+                    },
+                    {
+                        title: 'Suite Ejecutiva',
+                        description: 'Nuestra opción más lujosa, con amplios espacios y todas las comodidades.',
+                        image: '/api/placeholder/300/180',
+                        features: ['Cama Super King', 'Sala de estar separada', 'TV LED 65"', 'Cocina equipada', 'Baño con hidromasaje'],
+                        price: 25000
+                    }
+                ];
+                
+                // Crear tarjetas para cada habitación
+                availableRooms.forEach(room => {
+                    const roomCard = document.createElement('div');
+                    roomCard.className = 'room-card-result';
+                    
+                    // Lista de características
+                    let featuresHTML = '';
+                    room.features.forEach(feature => {
+                        featuresHTML += `<li>${feature}</li>`;
+                    });
+                    
+                    roomCard.innerHTML = `
+                        <div class="room-image-result">
+                            <img src="${room.image}" alt="${room.title}" width="100%" height="100%">
+                        </div>
+                        <div class="room-content-result">
         
         /* Contacto */
         .contact {
